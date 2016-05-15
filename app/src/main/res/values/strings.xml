@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MommyShare</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_testdddddddd">TestddddddddActivity</string>
+    <string name="title_activity_chatting">ChattingActivity</string>
+    <string name="title_activity_chatting_list">ChattingListActivity</string>
+    <string name="title_activity_notice">NoticeActivity</string>
+    <string name="title_activity_notice_detail">NoticeDetailActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
+    <string name="title_activity_my_product_list">MyProductListActivity</string>
+    <string name="title_activity_my_wish_list">MyWishListActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_write">WriteActivity</string>
+    <string name="title_activity_other_product_detail">OtherProductDetailActivity</string>
+</resources>
