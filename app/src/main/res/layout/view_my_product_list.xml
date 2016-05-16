@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/image_my_thumb"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name"
+        android:id="@+id/text_my_name"
+        android:layout_below="@+id/image_my_thumb"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Price"
+        android:id="@+id/text_my_price"
+        android:layout_below="@+id/text_my_name"
+        android:layout_alignLeft="@+id/text_my_name"
+        android:layout_alignStart="@+id/text_my_name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="eeee"
+        android:id="@+id/text_my_deposit"
+        android:layout_below="@+id/text_my_price"
+        android:layout_alignLeft="@+id/text_my_price"
+        android:layout_alignStart="@+id/text_my_price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ssssss"
+        android:id="@+id/text_my_period"
+        android:layout_below="@+id/text_my_deposit"
+        android:layout_alignLeft="@+id/text_my_deposit"
+        android:layout_alignStart="@+id/text_my_deposit" />
+</RelativeLayout>
