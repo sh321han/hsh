@@ -9,40 +9,44 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.sh321han.mommyshare.MainActivity"
+    tools:context=".Main.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <LinearLayout
+        android:id="@+id/spinner_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/spinner_view">
+        android:orientation="horizontal">
 
         <Spinner
+            android:id="@+id/spinner_category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/spinner_category"></Spinner>
+            android:gravity="center"></Spinner>
+
         <Spinner
+            android:id="@+id/spinner_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/spinner_price"></Spinner>
+            android:gravity="center"></Spinner>
+
         <Spinner
+            android:id="@+id/spinner_dist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/spinner_dist"></Spinner>
+            android:gravity="center"></Spinner>
     </LinearLayout>
 
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/spinner_view"
-        android:id="@+id/rv_list">
+
+        android:layout_below="@id/spinner_view">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

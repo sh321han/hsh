@@ -6,6 +6,8 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.sh321han.mommyshare.Main.MainActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     Handler mHandler = new Handler(Looper.getMainLooper());

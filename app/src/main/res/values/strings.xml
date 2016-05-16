@@ -16,4 +16,5 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_write">WriteActivity</string>
     <string name="title_activity_other_product_detail">OtherProductDetailActivity</string>
+    <string name="title_activity_my_product_detail">MyProductDetailActivity</string>
 </resources>

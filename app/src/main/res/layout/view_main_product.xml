@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <ImageView
+        android:id="@+id/image_thumb"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/image_thumb"
+        android:src="@mipmap/ic_launcher"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name"
         android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/image_thumb"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/image_thumb"
+        android:layout_alignStart="@+id/image_thumb" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Price"
         android:id="@+id/text_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_below="@+id/text_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/text_name"
+        android:layout_alignStart="@+id/text_name" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Deposit"
         android:id="@+id/text_deposit"
-        android:layout_below="@+id/text_price"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Deposit"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Period"
+        android:layout_below="@+id/text_price"
+        android:layout_alignLeft="@+id/text_price"
+        android:layout_alignStart="@+id/text_price" />
+
+    <TextView
         android:id="@+id/text_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Period"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_below="@+id/text_deposit"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/text_deposit"
+        android:layout_alignStart="@+id/text_deposit" />
+
 
 </RelativeLayout>
