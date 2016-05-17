@@ -1,17 +1,17 @@
 package com.sh321han.mommyshare.OtherProductDetail;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.sh321han.mommyshare.R;
 
 public class OtherProductDetailActivity extends AppCompatActivity {
 
+    OtherProductPagerAdapter mAdapter;
+    ViewPager pager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +20,27 @@ public class OtherProductDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        pager = (ViewPager)findViewById(R.id.pager);
+        mAdapter = new OtherProductPagerAdapter(getLayoutInflater());
+        pager.setAdapter(mAdapter);
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        pager.setCurrentItem(2, true);
     }
 
     @Override

@@ -19,10 +19,10 @@
     </string-array>
 
     <string-array name="setting_item">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item>푸시알림</item>
+        <item>로그아웃</item>
+        <item>회원탈퇴</item>
+        <item>공지사항</item>
+        <item>버전정보</item>
     </string-array>
 </resources>
