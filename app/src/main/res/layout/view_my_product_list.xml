@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:id="@+id/image_my_thumb"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|top"
         android:src="@mipmap/ic_launcher"/>
+
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="대여중"
+        android:id="@+id/my_mark_borrow"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:background="#FF0000"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,36 +28,35 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Name"
         android:id="@+id/text_my_name"
-        android:layout_below="@+id/image_my_thumb"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="130dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Price"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
         android:id="@+id/text_my_price"
-        android:layout_below="@+id/text_my_name"
-        android:layout_alignLeft="@+id/text_my_name"
-        android:layout_alignStart="@+id/text_my_name"/>
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="150dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="eeee"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
         android:id="@+id/text_my_deposit"
-        android:layout_below="@+id/text_my_price"
-        android:layout_alignLeft="@+id/text_my_price"
-        android:layout_alignStart="@+id/text_my_price" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="170dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="ssssss"
+        android:text="Medium Text"
         android:id="@+id/text_my_period"
-        android:layout_below="@+id/text_my_deposit"
-        android:layout_alignLeft="@+id/text_my_deposit"
-        android:layout_alignStart="@+id/text_my_deposit" />
-</RelativeLayout>
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="190dp"/>
+
+
+</FrameLayout>

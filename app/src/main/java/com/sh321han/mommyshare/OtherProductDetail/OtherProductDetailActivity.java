@@ -1,17 +1,29 @@
 package com.sh321han.mommyshare.OtherProductDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.sh321han.mommyshare.Manager.NetworkManager;
 import com.sh321han.mommyshare.R;
+import com.sh321han.mommyshare.data.ProductDetailData;
+
+import java.io.IOException;
+
+import okhttp3.Request;
 
 public class OtherProductDetailActivity extends AppCompatActivity {
 
-    OtherProductPagerAdapter mAdapter;
-    ViewPager pager;
+    RecyclerView recyclerView;
+    OtherProductDetailAdapter mAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,28 +31,37 @@ public class OtherProductDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+
+        initData(id);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        pager = (ViewPager)findViewById(R.id.pager);
-        mAdapter = new OtherProductPagerAdapter(getLayoutInflater());
-        pager.setAdapter(mAdapter);
-        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mAdapter = new OtherProductDetailAdapter();
+        recyclerView.setAdapter(mAdapter);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void initData(String id) {
+
+
+        NetworkManager.getInstance().ProductDetail(id, new NetworkManager.OnResultListener<ProductDetailData>() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onSuccess(Request request, ProductDetailData result) {
+
+                mAdapter.set(result);
 
             }
 
             @Override
-            public void onPageSelected(int position) {
+            public void onFail(Request request, IOException exception) {
 
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+                Log.d("실패", "ㅇㅇㅇ");
             }
         });
-        pager.setCurrentItem(2, true);
     }
 
     @Override

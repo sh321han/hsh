@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016-05-15.
  */
-public class MainProductAdapter extends RecyclerView.Adapter<MainProductViewHolder> {
+public class MainProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<MainProduct> items = new ArrayList<>();
 
     public void clear() {
@@ -32,21 +32,58 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductViewHold
         notifyDataSetChanged();
     }
 
+    public static final int VIEW_TYPE_SPINNER = 0;
+    public static final int VIEW_TYPE_PRODUCT = 1;
+
+
     MainProductViewHolder.OnItemClickListener mListener;
+
     public void setOnItemClickListener(MainProductViewHolder.OnItemClickListener listener) {
         mListener = listener;
     }
 
     @Override
-    public MainProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_main_product, null);
-        return new MainProductViewHolder(view);
+    public int getItemViewType(int position) {
+        MainProduct data = items.get(position);
+
+        if (position == 0) {
+            return VIEW_TYPE_SPINNER;
+        } else {
+            return VIEW_TYPE_PRODUCT;
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(MainProductViewHolder holder, int position) {
-        holder.setProduct(items.get(position));
-        holder.setOnItemClickListener(mListener);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = null;
+        switch (viewType) {
+            case VIEW_TYPE_SPINNER:
+                view = inflater.inflate(R.layout.view_main_spinner, parent, false);
+                return new MainSpinnerViewHolder(view);
+            case VIEW_TYPE_PRODUCT:
+                view = inflater.inflate(R.layout.view_main_product, parent, false);
+                return new MainProductViewHolder(view);
+
+        }
+        return null;
+
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (getItemViewType(position)) {
+            case VIEW_TYPE_SPINNER:
+                break;
+            case VIEW_TYPE_PRODUCT:
+                ((MainProductViewHolder) holder).setProduct(items.get(position));
+                ((MainProductViewHolder) holder).setOnItemClickListener(mListener);
+                break;
+
+        }
+
     }
 
     @Override

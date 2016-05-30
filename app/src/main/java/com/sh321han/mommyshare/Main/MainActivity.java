@@ -1,42 +1,36 @@
 package com.sh321han.mommyshare.Main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.sh321han.mommyshare.Chatting.ChattingActivity;
 import com.sh321han.mommyshare.MyProductList.MyProductListActivity;
-import com.sh321han.mommyshare.MyProfile.MyProfileActivity;
 import com.sh321han.mommyshare.MyWishList.MyWishListActivity;
-import com.sh321han.mommyshare.OtherProductDetail.OtherProductDetailActivity;
+import com.sh321han.mommyshare.Profile.MyProfileActivity;
 import com.sh321han.mommyshare.R;
 import com.sh321han.mommyshare.Setting.SettingActivity;
 import com.sh321han.mommyshare.Write.WriteActivity;
-import com.sh321han.mommyshare.data.MainProduct;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ImageView imageView;
-    Spinner categorySpinner, priceSpinner, distSpinner;
-    ArrayAdapter<String> cAdapter, pAdapter, dAdapter;
-    RecyclerView listView;
-    MainProductAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +39,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, WriteActivity.class);
                 startActivity(i);
+                //finish();
             }
         });
 
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+
         View headerView = navigationView.getHeaderView(0);
         imageView = (ImageView) headerView.findViewById(R.id.profile_img);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -74,111 +77,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        categorySpinner = (Spinner) findViewById(R.id.spinner_category);
-        priceSpinner = (Spinner) findViewById(R.id.spinner_price);
-        distSpinner = (Spinner) findViewById(R.id.spinner_dist);
-        cAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        cAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(cAdapter);
-        pAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        pAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        priceSpinner.setAdapter(pAdapter);
-        dAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        dAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        distSpinner.setAdapter(dAdapter);
 
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        priceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        distSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        categoryData();
-        priceData();
-        distData();
-
-
-        listView = (RecyclerView) findViewById(R.id.main_rv_list);
-        mAdapter = new MainProductAdapter();
-        listView.setAdapter(mAdapter);
-
-        listView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        mAdapter.setOnItemClickListener(new MainProductViewHolder.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, MainProduct product) {
-                Intent intent = new Intent(MainActivity.this, OtherProductDetailActivity.class);
-
-                startActivity(intent);
-            }
-        });
-        setData();
-
-    }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void categoryData() {
-        String[] items = getResources().getStringArray(R.array.category_item);
-        for (String s : items) {
-            cAdapter.add(s);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new MainFragment()).commit();
         }
     }
-
-    private void priceData() {
-        String[] items = getResources().getStringArray(R.array.price_item);
-        for (String s : items) {
-            pAdapter.add(s);
-        }
-    }
-
-    private void distData() {
-        String[] items = getResources().getStringArray(R.array.dist_item);
-        for (String s : items) {
-            dAdapter.add(s);
-        }
-    }
-
-    private void setData() {
-        for (int i = 0; i < 10; i++) {
-            MainProduct p = new MainProduct();
-            p.setName("Name " + i);
-            p.setPrice(i);
-            p.setDeposit(i);
-            p.setMinPeriod(i);
-            p.setMaxPeriod(i);
-            mAdapter.add(p);
-        }
-    }
-
 
 
     @Override
@@ -195,21 +98,37 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.btn_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                System.out.print(newText);
+                return false;
+            }
+        });
+
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.btn_search:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+                break;
+            case R.id.btn_chat:
+                Toast.makeText(MainActivity.this, "chat", Toast.LENGTH_LONG).show();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -231,6 +150,8 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this, ChattingActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_to_manager) {
+            Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:mommyshare@gmail.com"));
+            startActivity(i);
 
         } else if (id == R.id.nav_setting) {
             Intent i = new Intent(MainActivity.this, SettingActivity.class);
@@ -241,4 +162,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

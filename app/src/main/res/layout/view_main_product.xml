@@ -1,56 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:id="@+id/image_thumb"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center_horizontal|top"/>
 
-    <TextView
-        android:id="@+id/text_name"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:id="@+id/heart"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/ic_menu_share"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="90dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="대여중"
+        android:id="@+id/mark_borrow"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:background="#FF0000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/image_thumb"
-        android:layout_alignLeft="@+id/image_thumb"
-        android:layout_alignStart="@+id/image_thumb" />
+        android:text="Name"
+        android:id="@+id/text_name"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="130dp"/>
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
         android:id="@+id/text_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_below="@+id/text_name"
-        android:layout_alignLeft="@+id/text_name"
-        android:layout_alignStart="@+id/text_name" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="150dp"/>
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
         android:id="@+id/text_deposit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deposit"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_below="@+id/text_price"
-        android:layout_alignLeft="@+id/text_price"
-        android:layout_alignStart="@+id/text_price" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="170dp"/>
 
     <TextView
-        android:id="@+id/text_period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Period"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_below="@+id/text_deposit"
-        android:layout_alignLeft="@+id/text_deposit"
-        android:layout_alignStart="@+id/text_deposit" />
+        android:text="Medium Text"
+        android:id="@+id/text_period"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="190dp"/>
 
 
-</RelativeLayout>
+</FrameLayout>

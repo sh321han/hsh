@@ -14,7 +14,7 @@ import com.sh321han.mommyshare.data.MyProduct;
 public class MyProductListViewHolder extends RecyclerView.ViewHolder {
 
     ImageView thumbView;
-    TextView nameView, priceView, depositView,periodView;
+    TextView nameView, priceView, depositView,periodView, markView;
     MyProduct myproduct;
 
     public interface OnItemClickListener {
@@ -33,6 +33,7 @@ public class MyProductListViewHolder extends RecyclerView.ViewHolder {
         priceView = (TextView)itemView.findViewById(R.id.text_my_price);
         depositView = (TextView)itemView.findViewById(R.id.text_my_deposit);
         periodView = (TextView)itemView.findViewById(R.id.text_my_period);
+        markView = (TextView)itemView.findViewById(R.id.my_mark_borrow);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +50,6 @@ public class MyProductListViewHolder extends RecyclerView.ViewHolder {
         nameView.setText(myproduct.getMy_name());
         priceView.setText("대여료 " + myproduct.getMy_price());
         depositView.setText("보증금 " + myproduct.getMy_deposit());
-        periodView.setText("대여기간 "+myproduct.getMy_minPeriod()+" 일 ~ " + myproduct.getMy_maxPeriod()+" 일");
+        periodView.setText("대여기간 "+myproduct.getMy_minPeriod() +" 일 ~ " + myproduct.getMy_maxPeriod()+" 일");
     }
 }

@@ -1,13 +1,17 @@
 package com.sh321han.mommyshare.MyProductList;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sh321han.mommyshare.MyProductDetail.MyProductDetailActivity;
 import com.sh321han.mommyshare.R;
@@ -15,6 +19,7 @@ import com.sh321han.mommyshare.data.MyProduct;
 
 public class MyProductListActivity extends AppCompatActivity {
 
+    final String[] items = new String[] {"게시물 보기", "게시물 삭제", "게시물 수정", "대여중으로 변경", "대여가능으로 변경"};
     RecyclerView listView;
     MyProductListAdapter mAdapter;
     @Override
@@ -35,12 +40,34 @@ public class MyProductListActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new MyProductListViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(View view, MyProduct myproduct) {
-                Intent intent = new Intent(MyProductListActivity.this, MyProductDetailActivity.class);
-
-                startActivity(intent);
+                editDialog();
             }
         });
         setData();
+
+
+
+
+
+    }
+
+    private void editDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyProductListActivity.this);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MyProductListActivity.this, items[which], Toast.LENGTH_LONG).show();
+                switch(which) {
+                    case 0 :
+                        Intent i = new Intent(MyProductListActivity.this, MyProductDetailActivity.class);
+                        i.putExtra("home", 0);
+                        startActivity(i);
+                }
+            }
+        });
+        AlertDialog dialog = builder.create();
+        ListView listView = dialog.getListView();
+        dialog.show();
     }
 
     private void setData() {
