@@ -26,7 +26,7 @@ public class OtherDescViewHolder extends RecyclerView.ViewHolder {
 
     public void setData(ProductDetailData data) {
         this.data = data;
-        nameView.setText(data.getMember_name());
+        nameView.setText(data.getName());
         priceView.setText("대여료 | " + data.getRent_fee());
         depositView.setText("보증금 | " + data.getRent_deposit());
         periodView.setText("대여기간 | " + data.getMin_rent_period() + "일 ~" + data.getMax_rent_period() + "일");

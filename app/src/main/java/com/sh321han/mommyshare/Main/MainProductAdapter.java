@@ -36,6 +36,12 @@ public class MainProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public static final int VIEW_TYPE_PRODUCT = 1;
 
 
+    MainProductViewHolder.OnHeartClickListener hListener;
+
+    public void setOnHeartClickListener(MainProductViewHolder.OnHeartClickListener listener) {
+        hListener = listener;
+    }
+
     MainProductViewHolder.OnItemClickListener mListener;
 
     public void setOnItemClickListener(MainProductViewHolder.OnItemClickListener listener) {
@@ -46,12 +52,14 @@ public class MainProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         MainProduct data = items.get(position);
 
-        if (position == 0) {
+        return VIEW_TYPE_PRODUCT;
+
+        /*if (position == 0) {
             return VIEW_TYPE_SPINNER;
         } else {
             return VIEW_TYPE_PRODUCT;
         }
-
+*/
     }
 
     @Override
@@ -60,9 +68,9 @@ public class MainProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = null;
         switch (viewType) {
-            case VIEW_TYPE_SPINNER:
-                view = inflater.inflate(R.layout.view_main_spinner, parent, false);
-                return new MainSpinnerViewHolder(view);
+//            case VIEW_TYPE_SPINNER:
+//                view = inflater.inflate(R.layout.view_main_spinner, parent, false);
+//                return new MainSpinnerViewHolder(view);
             case VIEW_TYPE_PRODUCT:
                 view = inflater.inflate(R.layout.view_main_product, parent, false);
                 return new MainProductViewHolder(view);
@@ -75,11 +83,12 @@ public class MainProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case VIEW_TYPE_SPINNER:
-                break;
+//            case VIEW_TYPE_SPINNER:
+//                break;
             case VIEW_TYPE_PRODUCT:
                 ((MainProductViewHolder) holder).setProduct(items.get(position));
                 ((MainProductViewHolder) holder).setOnItemClickListener(mListener);
+                ((MainProductViewHolder) holder).setOnHeartClickListener(hListener);
                 break;
 
         }

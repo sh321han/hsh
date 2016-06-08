@@ -12,7 +12,8 @@
     tools:context=".Main.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:id="@+id/container"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="#e4e9ea">
 
 
 

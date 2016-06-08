@@ -18,4 +18,6 @@
         android:icon="@drawable/ic_menu_slideshow"
         app:showAsAction="always"
         android:title="chatting"/>
+
+
 </menu>

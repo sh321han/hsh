@@ -2,6 +2,7 @@ package com.sh321han.mommyshare.Main;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,18 +16,29 @@ import com.sh321han.mommyshare.data.MainProduct;
 public class MainProductViewHolder extends RecyclerView.ViewHolder {
 
     private static final String MOMMYSHARE_SERVER = "http://52.79.57.157:3000";
-    private static final String A = "http://52.79.57.157:3000/images/products/wcj4igkh.jpeg";
+//    private static final String A = "http://52.79.57.157:3000/images/products/wcj4igkh.jpeg";
 
 
-    ImageView thumbView, heartView;
-    TextView nameView, priceView, depositView, periodView, markView;
+    ImageView thumbView, markView;
+    TextView nameView, priceView, depositView, periodView;
     MainProduct product;
+    CheckBox heartView;
+
 
     public interface OnItemClickListener {
         public void onItemClick(View view, MainProduct mainproduct);
     }
 
+    public interface OnHeartClickListener {
+        public void onHeartClick(View view, MainProduct product);
+    }
+
     OnItemClickListener mListener;
+    OnHeartClickListener hListener;
+
+    public void setOnHeartClickListener(OnHeartClickListener listener) {
+        hListener = listener;
+    }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
@@ -39,8 +51,20 @@ public class MainProductViewHolder extends RecyclerView.ViewHolder {
         priceView = (TextView) itemView.findViewById(R.id.text_price);
         depositView = (TextView) itemView.findViewById(R.id.text_deposit);
         periodView = (TextView) itemView.findViewById(R.id.text_period);
-        markView = (TextView) itemView.findViewById(R.id.mark_borrow);
-        heartView = (ImageView) itemView.findViewById(R.id.heart);
+        markView = (ImageView) itemView.findViewById(R.id.mark_borrow);
+
+        heartView = (CheckBox) itemView.findViewById(R.id.heart);
+//        heartView.setSelected(true);
+        heartView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hListener != null) {
+                    hListener.onHeartClick(v, product);
+
+                }
+            }
+        });
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,15 +73,17 @@ public class MainProductViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+
+
     }
+
+
 
     public void setProduct(MainProduct product) {
         this.product = product;
 
-        if(product.getPicture_name().size() != 0) {
+        if (product.getPicture_name().size() != 0) {
             Glide.with(thumbView.getContext()).load(MOMMYSHARE_SERVER + product.getPicture_path() + product.getPicture_name().get(0)).into(thumbView);
-        } else {
-            return;
         }
 
         nameView.setText(product.getName());

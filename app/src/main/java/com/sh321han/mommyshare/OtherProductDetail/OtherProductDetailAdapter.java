@@ -16,6 +16,17 @@ public class OtherProductDetailAdapter extends RecyclerView.Adapter<RecyclerView
 
     ProductDetailData item = null;
 
+
+    OtherWriteViewHolder.OnClickButtonListener mListener;
+    public void setClickButtonListener(OtherWriteViewHolder.OnClickButtonListener listener){
+        mListener=listener;
+    }
+
+    public void clear(){
+        item = new ProductDetailData();
+        notifyDataSetChanged();
+    }
+
     public void set(ProductDetailData data) {
         item = data;
         notifyDataSetChanged();
@@ -56,10 +67,10 @@ public class OtherProductDetailAdapter extends RecyclerView.Adapter<RecyclerView
             case VIEW_TYPE_PAGER :
                 view = inflater.inflate(R.layout.view_other_product_detail_vp, parent, false);
                 return new OtherPagerViewHolder(view);
-            case VIEW_TYPE_LENDER:
+            case VIEW_TYPE_LENDER :
                 view = inflater.inflate(R.layout.view_other_product_detail_lender, parent, false);
                 return new LenderViewHolder(view);
-            case VIEW_TYPE_DESC:
+            case VIEW_TYPE_DESC :
                 view = inflater.inflate(R.layout.view_other_product_detail_desc, parent, false);
                 return new OtherDescViewHolder(view);
             case VIEW_TYPE_DETAIL:
@@ -79,7 +90,7 @@ public class OtherProductDetailAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
 //            case VIEW_TYPE_PAGER :
-//                ((OtherPagerViewHolder)holder).setData();
+//                ((OtherPagerViewHolder)holder).setData(item);
 //                break;
             case VIEW_TYPE_LENDER:
                 ((LenderViewHolder) holder).setData(item);
@@ -91,6 +102,7 @@ public class OtherProductDetailAdapter extends RecyclerView.Adapter<RecyclerView
                 ((OtherDetailViewHolder) holder).setData(item);
                 break;
             case VIEW_TYPE_WRITE :
+                ((OtherWriteViewHolder)holder).setButtonClickListener(mListener);
                 break;
             case VIEW_TYPE_REVIEW :
                 ((OtherReviewViewHolder)holder).setData(item.getReviews().get(position-5));

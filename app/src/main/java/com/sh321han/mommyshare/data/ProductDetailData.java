@@ -21,7 +21,7 @@ public class ProductDetailData {
     public String location;
     public String content;
     public String reg_date;
-    public List<ProductReview> reviews = new ArrayList<ProductReview>();
+    public List<ProductReviewData> reviews = new ArrayList<ProductReviewData>();
     public boolean is_keep;
     public String status;
     public String category;
@@ -130,11 +130,11 @@ public class ProductDetailData {
         this.reg_date = reg_date;
     }
 
-    public List<ProductReview> getReviews() {
+    public List<ProductReviewData> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<ProductReview> reviews) {
+    public void setReviews(List<ProductReviewData> reviews) {
         this.reviews = reviews;
     }
 

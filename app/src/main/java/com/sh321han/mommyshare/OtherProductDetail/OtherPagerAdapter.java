@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 /**
  * Created by Administrator on 2016-05-24.
  */
-public class OtherPagerAdapter extends PagerAdapter{
-
+public class OtherPagerAdapter extends PagerAdapter {
 
     Context mContext;
     public static final int VIEW_COUNT = 3;
@@ -24,10 +23,15 @@ public class OtherPagerAdapter extends PagerAdapter{
         return VIEW_COUNT;
     }
 
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        return null;
+        View view = null;
+
+
+        return view;
+
     }
 
     @Override
@@ -39,4 +43,6 @@ public class OtherPagerAdapter extends PagerAdapter{
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
+
+
 }

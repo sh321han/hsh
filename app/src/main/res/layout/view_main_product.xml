@@ -10,25 +10,25 @@
         android:id="@+id/image_thumb"
         android:layout_gravity="center_horizontal|top"/>
 
-    <ImageView
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/heart"
         android:layout_gravity="center_horizontal|top"
-        android:src="@drawable/ic_menu_share"
+        android:button="@drawable/heart_selector"
+        android:checked="false"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="90dp"/>
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="대여중"
+        android:src="@drawable/rent_icon"
         android:id="@+id/mark_borrow"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:background="#FF0000"/>
+        android:layout_marginLeft="40dp" />
 
     <TextView
         android:layout_width="wrap_content"

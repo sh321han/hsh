@@ -6,15 +6,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sh321han.mommyshare.R;
-import com.sh321han.mommyshare.data.ProductReview;
+import com.sh321han.mommyshare.data.ProductReviewData;
 
 /**
  * Created by Tacademy on 2016-05-23.
  */
 public class OtherReviewViewHolder extends RecyclerView.ViewHolder {
-    ProductReview data;
+    ProductReviewData data;
     ImageView profileView;
     TextView nameView, timeView, reviewView;
+
 
     public OtherReviewViewHolder(View itemView) {
         super(itemView);
@@ -24,11 +25,11 @@ public class OtherReviewViewHolder extends RecyclerView.ViewHolder {
         reviewView = (TextView)itemView.findViewById(R.id.text_review);
     }
 
-    public void setData(ProductReview data) {
+    public void setData(ProductReviewData data) {
         this.data = data;
 
-        reviewView.setText(data.getReview());
-        nameView.setText(data.getReview_name());
+        timeView.setText(data.getReg_date().substring(0,10));
+        reviewView.setText(data.getContent());
 
 
     }

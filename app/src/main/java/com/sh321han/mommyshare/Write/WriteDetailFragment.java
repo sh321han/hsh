@@ -1,12 +1,16 @@
 package com.sh321han.mommyshare.Write;
 
 
-import android.content.ActivityNotFoundException;
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.sh321han.mommyshare.Manager.NetworkManager;
 import com.sh321han.mommyshare.MyProductDetail.MyProductDetailActivity;
 import com.sh321han.mommyshare.R;
 import com.sh321han.mommyshare.data.WriteData;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Request;
@@ -30,15 +34,106 @@ import okhttp3.Request;
  */
 public class WriteDetailFragment extends Fragment {
 
-    private static final int PICK_FROM_CAMERA = 1;
-    private static final int PICK_FROM_GALLERY = 2;
-    private ImageView imgview1, imgview2;
-
+    private static final int RC_GALLERY = 1;
+    private static final int RC_CAMERA = 2;
+    ImageView imgview1, imgview2, imgview3;
+    ImageButton btn_camera, btn_gallery;
 
     EditText editText;
+    String content;
+
+
+    private void getImageFromCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getCameraCaptureFile());
+        startActivityForResult(intent, RC_CAMERA);
+    }
+
+    File mCameraCaptureFile;
+
+    private Uri getCameraCaptureFile() {
+        File dir = getContext().getExternalFilesDir("myphoto");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        mCameraCaptureFile = new File(dir, "my_photo_"+System.currentTimeMillis()+".jpg");
+        return Uri.fromFile(mCameraCaptureFile);
+    }
+
+    private void getImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/jpeg");
+        startActivityForResult(intent, RC_GALLERY);
+    }
+
+    File mUploadFile = null;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mUploadFile != null) {
+            outState.putString("uploadfile", mUploadFile.getAbsolutePath());
+        }
+        if (mCameraCaptureFile != null) {
+            outState.putString("cameraFile", mCameraCaptureFile.getAbsolutePath());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_GALLERY) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getData();
+                String[] projection = {MediaStore.Images.Media.DATA};
+                Cursor c = getContext().getContentResolver().query(uri, projection, null, null, null);
+                if (c.moveToNext()) {
+                    String path = c.getString(c.getColumnIndex(MediaStore.Images.Media.DATA));
+                    mUploadFile = new File(path);
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    opts.inSampleSize = 2;
+                    Bitmap bm = BitmapFactory.decodeFile(path, opts);
+                    imgview1.setImageBitmap(bm);
+
+                }
+            }
+            return;
+        }
+
+        if (requestCode == RC_CAMERA) {
+            if (resultCode == Activity.RESULT_OK) {
+
+                File file = mCameraCaptureFile;
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                opts.inSampleSize = 2;
+                Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+                imgview1.setImageBitmap(bm);
+                mUploadFile = file;
+
+            }
+            return;
+        }
+
+//        onActivityResult(requestCode, resultCode, data); //
+    }
 
     public WriteDetailFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            String path = savedInstanceState.getString("uploadfile");
+            if (!TextUtils.isEmpty(path)) {
+                mUploadFile = new File(path);
+            }
+            path = savedInstanceState.getString("cameraFile");
+            if (!TextUtils.isEmpty(path)) {
+                mCameraCaptureFile = new File(path);
+            }
+        }
     }
 
 
@@ -46,11 +141,22 @@ public class WriteDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Toast.makeText(getActivity(), getArguments().getString("name"), Toast.LENGTH_LONG).show();
         final String name = getArguments().getString("name");
+        final int rent_fee = getArguments().getInt("rent_fee");
+        final String category = getArguments().getString("category");
+        final int rent_deposit = getArguments().getInt("rent_deposit");
+        final int min_rent_period = getArguments().getInt("min_rent_period");
+        final int max_rent_period = getArguments().getInt("max_rent_period");
+        final double longitude = getArguments().getDouble("longitude");
+        final double latitude = getArguments().getDouble("latitude");
+
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_write_detail, container, false);
+
+        editText = (EditText) view.findViewById(R.id.edit_detail);
+        editText.requestFocus();
 
 
         Button button = (Button)getActivity().findViewById(R.id.btn_next);
@@ -60,105 +166,67 @@ public class WriteDetailFragment extends Fragment {
 
                 //네트워크 매니저
 
+                content = editText.getText().toString();
 
-                NetworkManager.getInstance().ProductWrite("dd", new NetworkManager.OnResultListener<WriteData>() {
-                    @Override
-                    public void onSuccess(Request request, WriteData result) {
-                        Intent i = new Intent(getActivity(), MyProductDetailActivity.class);
-                        i.putExtra("name",name);
-                        i.putExtra("home", 1);
+                NetworkManager.getInstance().ProductWrite(longitude, latitude, name, category, rent_fee, rent_deposit, min_rent_period, max_rent_period, content,
+                        new NetworkManager.OnResultListener<WriteData>() {
+                            @Override
+                            public void onSuccess(Request request, WriteData result) {
+                                Intent i = new Intent(getActivity(), MyProductDetailActivity.class);
+                                i.putExtra("longitude", longitude);
+                                i.putExtra("latitude", latitude);
+                                i.putExtra("content", content);
+                                i.putExtra("name", name);
+                                i.putExtra("category", category);
+                                i.putExtra("rent_fee", rent_fee);
+                                i.putExtra("rent_deposit", rent_deposit);
+                                i.putExtra("min_rent_period", min_rent_period);
+                                i.putExtra("max_rent_period", max_rent_period);
+                                i.putExtra("home", 1);
+                                startActivity(i);
 
-                        startActivity(i);
+                            }
 
-                    }
+                            @Override
+                            public void onFail(Request request, IOException exception) {
 
-                    @Override
-                    public void onFail(Request request, IOException exception) {
-
-                    }
-                });
+                            }
+                        });
             }
         });
+
+
 
 
         imgview1 = (ImageView) view.findViewById(R.id.image1);
         imgview2 = (ImageView) view.findViewById(R.id.image2);
+        imgview3 = (ImageView) view.findViewById(R.id.image3);
 
-        ImageButton btn_camera = (ImageButton) view.findViewById(R.id.btn_camera);
-        ImageButton btn_gallery = (ImageButton) view.findViewById(R.id.btn_gallery);
+        btn_camera = (ImageButton) view.findViewById(R.id.btn_camera);
+        btn_gallery = (ImageButton) view.findViewById(R.id.btn_gallery);
 
-        editText = (EditText) view.findViewById(R.id.edit_detail);
-        editText.requestFocus();
+
+
 
         btn_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-
-                // 카메라 호출
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString());
-
-                // 이미지 잘라내기 위한 크기
-                intent.putExtra("crop", "true");
-                intent.putExtra("aspectX", 0);
-                intent.putExtra("aspectY", 0);
-                intent.putExtra("outputX", 200);
-                intent.putExtra("outputY", 150);
-
-                try {
-                    intent.putExtra("return-data", true);
-                    startActivityForResult(intent, PICK_FROM_CAMERA);
-                } catch (ActivityNotFoundException e) {
-                    // Do nothing for now
-                }
+                getImageFromCamera();
             }
         });
 
         btn_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent();
-                // Gallery 호출
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                // 잘라내기 셋팅
-                intent.putExtra("crop", "true");
-                intent.putExtra("aspectX", 0);
-                intent.putExtra("aspectY", 0);
-                intent.putExtra("outputX", 200);
-                intent.putExtra("outputY", 150);
-                try {
-                    intent.putExtra("return-data", true);
-                    startActivityForResult(Intent.createChooser(intent,
-                            "Complete action using"), PICK_FROM_GALLERY);
-                } catch (ActivityNotFoundException e) {
-                    // Do nothing for now
-                }
+                getImageFromGallery();
             }
         });
+
 
         return view;
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == PICK_FROM_CAMERA) {
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                imgview1.setImageBitmap(photo);
-            }
-        }
-        if (requestCode == PICK_FROM_GALLERY) {
-            Bundle extras2 = data.getExtras();
-            if (extras2 != null) {
-                Bitmap photo1 = extras2.getParcelable("data");
-                imgview1.setImageBitmap(photo1);
-            }
-
-        }
-
-    }
 }
 
 

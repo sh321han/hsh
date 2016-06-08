@@ -9,7 +9,7 @@ import java.util.List;
 public class MainProduct {
 
     public String _id; //상품아이디
-    public String category;
+    public String category_id;
     public String name; // 상품 이름
     //public String[] picture_name;
     public List<String> picture_name = new ArrayList<String>();
@@ -41,16 +41,8 @@ public class MainProduct {
         this.picture_name = picture_name;
     }
 
-    /*
-            public String[] getPicture_name() {
 
-                return picture_name;
-            }
 
-            public void setPicture_name(String[] picture_name) {
-                this.picture_name = picture_name;
-            }
-        */
     public String get_id() {
         return _id;
     }

@@ -1,72 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="142dp"
+    android:layout_marginTop="20dp"
+    android:background="#e4e9ea"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="물품 설명"
+    <ImageView
         android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="50dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/pro_d_txt"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="328dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/pro_d_bg">
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
             android:id="@+id/text_name"
-            android:layout_marginLeft="27dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="39dp"
-            android:layout_alignParentTop="true"
+            android:layout_width="11dp"
+            android:layout_height="16dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="16dp"
+            android:textSize="12dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
             android:id="@+id/text_price"
-            android:layout_below="@+id/text_name"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/text_name"
-            android:layout_alignStart="@+id/text_name" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/text_period"
+            android:layout_alignStart="@+id/text_name"
             android:layout_below="@+id/text_name"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="9dp"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="11dp" />
 
         <TextView
+            android:id="@+id/text_period"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignTop="@id/text_price"
+            android:layout_toRightOf="@+id/text_price"
             android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="11dp" />
+
+        <TextView
             android:id="@+id/text_deposit"
-            android:layout_below="@+id/text_price"
-            android:layout_alignLeft="@+id/text_price"
-            android:layout_alignStart="@+id/text_price" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignLeft="@+id/text_price"
+            android:layout_alignStart="@+id/text_price"
+            android:layout_below="@+id/text_price"
             android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="11dp" />
+
+        <TextView
             android:id="@+id/text_location"
-            android:layout_alignTop="@+id/text_deposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/text_period"
-            android:layout_alignStart="@+id/text_period" />
+            android:layout_alignStart="@+id/text_period"
+            android:layout_alignTop="@+id/text_deposit"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="11dp" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

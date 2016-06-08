@@ -51,8 +51,7 @@
         android:id="@+id/image1"
         android:layout_alignBottom="@+id/btn_gallery"
         android:layout_toRightOf="@+id/btn_gallery"
-        android:layout_toEndOf="@+id/btn_gallery"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_toEndOf="@+id/btn_gallery"/>
 
     <ImageView
         android:layout_width="50dp"
@@ -61,7 +60,7 @@
         android:layout_alignBottom="@+id/image1"
         android:layout_toRightOf="@+id/image1"
         android:layout_toEndOf="@+id/image1"
-        android:src="@mipmap/ic_launcher"/>
+        />
 
     <ImageView
         android:layout_width="50dp"
@@ -69,8 +68,7 @@
         android:id="@+id/image3"
         android:layout_alignBottom="@+id/image2"
         android:layout_toRightOf="@+id/image2"
-        android:layout_toEndOf="@+id/image2"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_toEndOf="@+id/image2"/>
 
 
 </RelativeLayout>
