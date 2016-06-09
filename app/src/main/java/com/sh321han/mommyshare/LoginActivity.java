@@ -14,6 +14,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.sh321han.mommyshare.Main.MainActivity;
 import com.sh321han.mommyshare.Manager.NetworkManager;
+import com.sh321han.mommyshare.Manager.PropertyManager;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
                             AccessToken token = AccessToken.getCurrentAccessToken();
-                            NetworkManager.getInstance().login(LoginActivity.this, token.getToken(), "" , new NetworkManager.OnResultListener<com.sh321han.mommyshare.data.LoginResult>(){
+                            NetworkManager.getInstance().login(LoginActivity.this, token.getToken(), PropertyManager.getInstance().getRegistrationToken(), new NetworkManager.OnResultListener<com.sh321han.mommyshare.data.LoginResult>(){
                                 @Override
                                 public void onSuccess(Request request, com.sh321han.mommyshare.data.LoginResult result) {
                                     if (result.getSuccess()) {

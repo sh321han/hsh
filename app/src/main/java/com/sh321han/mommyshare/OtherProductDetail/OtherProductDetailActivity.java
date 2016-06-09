@@ -35,8 +35,11 @@ public class OtherProductDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.before_icon);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        getSupportActionBar().hide();
+
 
 
         Intent intent = getIntent();
@@ -44,8 +47,7 @@ public class OtherProductDetailActivity extends AppCompatActivity {
         initData(id);
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.before_icon);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new OtherProductDetailAdapter();

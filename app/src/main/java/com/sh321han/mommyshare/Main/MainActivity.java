@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.btn_chat:
                 Toast.makeText(MainActivity.this, "chat", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(MainActivity.this, ChattingActivity.class);
+                startActivity(i);
                 break;
         }
         return super.onOptionsItemSelected(item);
