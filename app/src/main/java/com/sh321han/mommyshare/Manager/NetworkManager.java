@@ -13,6 +13,7 @@ import com.sh321han.mommyshare.GoogleMap.SearchPOIInfo;
 import com.sh321han.mommyshare.MyApplication;
 import com.sh321han.mommyshare.data.CategoryList;
 import com.sh321han.mommyshare.data.KeepData;
+import com.sh321han.mommyshare.data.LoginResult;
 import com.sh321han.mommyshare.data.MainProduct;
 import com.sh321han.mommyshare.data.MainProductResult;
 import com.sh321han.mommyshare.data.ProductDetailData;
@@ -378,6 +379,48 @@ public class NetworkManager {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     KeepData data = gson.fromJson(response.body().charStream(), KeepData.class);
+
+                    result.result = data;
+
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_SUCCESS, result));
+                } else {
+                    result.excpetion = new IOException(response.message());
+                    mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+                }
+            }
+        });
+        return request;
+    }
+
+    private static final String LOGIN = MOMMYSHARE_SERVER + "/member/login";
+    public Request login(Context context, String token, String registrationToken, OnResultListener<LoginResult> listener) {
+        RequestBody body = new FormBody.Builder()
+                .add("token", token)
+                .add("registration_token", registrationToken)
+                .build();
+
+
+        Request request = new Request.Builder()
+                .url(LOGIN)
+                .post(body)
+                .build();
+
+
+        final NetworkResult<LoginResult> result = new NetworkResult<>();
+        result.request = request;
+        result.listener = listener;
+
+        mClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                result.excpetion = e;
+                mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_FAIL, result));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    LoginResult data = gson.fromJson(response.body().charStream(), LoginResult.class);
 
                     result.result = data;
 

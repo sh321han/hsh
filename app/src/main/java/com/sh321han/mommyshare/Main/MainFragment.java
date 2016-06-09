@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
                     public void onSuccess(Request request, KeepData result) {
                         if (result.success.equals("true")) {
                             Log.d("성공","=====================");
-                            //TODO:하트체크하면 찜목록으로 데이터 전달하기
+
 
 
 
